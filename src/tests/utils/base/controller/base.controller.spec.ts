@@ -4,7 +4,7 @@ import { MockBaseService } from '../mocks/service/service.mock';
 import { MockBaseRepository } from '../mocks/repository/base-repository.mock';
 import { IMockBaseEntity } from '../mocks/entity/base-entity.mock';
 
-describe.skip('BaseController', () => {
+describe('BaseController', () => {
   let controller: MockBaseController;
   let service: MockBaseService;
 
@@ -58,9 +58,15 @@ describe.skip('BaseController', () => {
   });
 
   describe('findOne', () => {
+    const req: Omit<IMockBaseEntity, 'id'> = {
+      name: 'José',
+      age: 58
+    };
+
     it(`should call the service's getOneById function`, async () => {
       jest.spyOn(service, 'getOneById');
 
+      await controller.create(req);
       await controller.findOne('1');
 
       expect(service.getOneById).toHaveBeenCalledTimes(1);
@@ -68,19 +74,31 @@ describe.skip('BaseController', () => {
   });
 
   describe('update', () => {
+    const req: Omit<IMockBaseEntity, 'id'> = {
+      name: 'José',
+      age: 58
+    };
+
     it(`should call the service's update function`, async () => {
       jest.spyOn(service, 'update');
 
-      await controller.update('1', { name: 'Luiz' });
+      await controller.create(req);
+      await controller.update('1', { age: 59 });
 
       expect(service.update).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('delete', () => {
+    const req: Omit<IMockBaseEntity, 'id'> = {
+      name: 'José',
+      age: 58
+    };
+
     it(`should call the service's delete function`, async () => {
       jest.spyOn(service, 'delete');
 
+      await controller.create(req);
       await controller.delete('1');
 
       expect(service.delete).toHaveBeenCalledTimes(1);
