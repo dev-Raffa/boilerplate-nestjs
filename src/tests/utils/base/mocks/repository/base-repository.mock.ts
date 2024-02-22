@@ -1,12 +1,11 @@
 import { IRepository } from 'src/utils/base/repository/base.repository';
 import { IMockBaseEntity, MockBaseEntity } from '../entity/base-entity.mock';
-
-//export const MockBaseRepository: IMockBaseEntity[] = [];
+import { MockBaseDB } from '../database/database-base.mock';
 
 export class MockBaseRepository implements IRepository<IMockBaseEntity> {
-  repository: IMockBaseEntity[] = [];
+  private repository: IMockBaseEntity[] = MockBaseDB;
 
-  getId() {
+  private getId() {
     return this.repository.length + 1;
   }
 

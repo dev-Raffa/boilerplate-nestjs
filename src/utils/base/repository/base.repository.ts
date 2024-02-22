@@ -1,6 +1,4 @@
 export interface IRepository<T> {
-  readonly repository: T[];
-  readonly getId: () => number;
   create: (args: Omit<T, 'id'>) => Promise<T>;
   save: (args: T) => Promise<T>;
   find: () => Promise<T[]>;
