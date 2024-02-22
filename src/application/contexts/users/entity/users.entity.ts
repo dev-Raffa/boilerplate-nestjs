@@ -1,10 +1,5 @@
+import { IUser } from '../../../../domain/user/model/user.model';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-export interface IUser {
-  id: number;
-  name: string;
-  age: number;
-}
 
 @Entity()
 export class UserEntity implements IUser {
