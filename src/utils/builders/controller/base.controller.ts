@@ -1,6 +1,6 @@
 import { Body, Delete, Get, Inject, Param, Patch, Post } from '@nestjs/common';
-import { IBaseService } from '../service/base-service.interface';
-import { IBaseController } from './base-controller.interface';
+import { IBaseService } from '../../interfaces/service/service.interface';
+import { IBaseController } from '../../interfaces/controller/controller.interface';
 
 export abstract class BaseController<T, S> implements IBaseController<T> {
   constructor(
@@ -30,7 +30,7 @@ export abstract class BaseController<T, S> implements IBaseController<T> {
   }
 
   @Delete(':id')
-  async delete(id: string): Promise<T[]> {
+  async delete(@Param('id') id: string): Promise<T[]> {
     return await this.service.delete(+id);
   }
 }

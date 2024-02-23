@@ -8,7 +8,7 @@ export const registerProviders = (
 ): Provider[] => {
   const baseProviders: Provider[] = [
     {
-      provide: 'ENTITY',
+      provide: 'REPOSITORY',
       useFactory: (datasource: DataSource) => datasource.getRepository(entity),
       inject: ['DATA_SOURCE']
     },

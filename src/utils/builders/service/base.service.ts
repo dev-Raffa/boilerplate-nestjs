@@ -1,7 +1,7 @@
 import { Inject, NotFoundException } from '@nestjs/common';
-import { IBaseEntity } from '../entity/base.entity';
-import { IBaseService } from './base-service.interface';
-import { IRepository } from '../repository/base.repository';
+import { IBaseEntity } from '../../interfaces/entitty/entity.interface';
+import { IBaseService } from '../../interfaces/service/service.interface';
+import { IRepository } from '../../interfaces/repository/repository.inteface';
 
 export abstract class BaseService<T extends IBaseEntity>
   implements IBaseService<T>

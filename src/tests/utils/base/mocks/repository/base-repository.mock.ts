@@ -1,4 +1,4 @@
-import { IRepository } from 'src/utils/base/repository/base.repository';
+import { IRepository } from 'src/utils/interfaces/repository/repository.inteface';
 import { IMockBaseEntity, MockBaseEntity } from '../entity/base-entity.mock';
 import { MockBaseDB } from '../database/database-base.mock';
 
