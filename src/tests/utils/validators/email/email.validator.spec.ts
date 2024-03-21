@@ -1,6 +1,6 @@
 import { EmailValidator } from '../../../../utils/validators/email/email.validator';
 
-describe.skip('email validator', () => {
+describe('email validator', () => {
   const validator = new EmailValidator();
 
   it('should return false when email format is not valid', () => {
