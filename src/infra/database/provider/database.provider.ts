@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import { Provider } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { UserEntity } from '../../../application/contexts/users/entity/users.entity';
+import { UserEntity } from '../../../app/contexts/user/entity/user.entity';
 
 export const databaseProvider: Provider[] = [
   {

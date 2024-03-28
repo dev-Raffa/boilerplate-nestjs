@@ -1,13 +1,16 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/infra/database/database.module';
-import { UsersService } from './service/users.service';
-import { UserEntity } from './entity/users.entity';
-import { UsersController } from './controller/users.controller';
+import { UserService } from './service/users.service';
+import { UserEntity } from './entity/user.entity';
+import { UsersController } from './controller/user.controller';
 import { registerProviders } from 'src/utils/helpers/register-providers/register-providers.helper';
 
 @Module({
   imports: [DatabaseModule],
-  providers: registerProviders(UserEntity, UsersService),
+  providers: registerProviders({
+    entity: UserEntity,
+    service: UserService
+  }),
   controllers: [UsersController]
 })
 export class UsersModule {}

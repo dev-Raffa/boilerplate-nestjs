@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SimpleService } from '../../../../utils/builders/service/simple.service';
-import { IUser } from 'src/domain/user/model/user.model';
+import { IUser } from 'src/app/contexts/user/model/user.model';
 
 @Injectable()
-export class UsersService extends SimpleService<IUser> {}
+export class UserService extends SimpleService<IUser> {}
