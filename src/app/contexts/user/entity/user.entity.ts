@@ -1,5 +1,5 @@
-import { IUser } from '../model/user.model';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IUser } from '../model/user.model';
 
 @Entity()
 export class UserEntity implements IUser {
@@ -11,4 +11,7 @@ export class UserEntity implements IUser {
 
   @Column()
   age: number;
+
+  @Column()
+  email: string;
 }

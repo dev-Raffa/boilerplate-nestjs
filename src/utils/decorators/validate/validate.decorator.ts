@@ -1,5 +1,5 @@
 import { Validator_Errors } from '../../constants/validatorErrors/validatorErrors.const';
-import { Validator } from 'src/utils/validators/validator';
+import { Validator } from '../../../utils/validators/validator';
 
 export function Validate(validator: InstanceType<typeof Validator>) {
   return (target: any, propertyKey: string) => {
@@ -20,7 +20,7 @@ export function Validate(validator: InstanceType<typeof Validator>) {
               enumerable: false,
               writable: true
             });
-            target.getValidatorErros = function () {
+            target.getErrors = function () {
               return target[Validator_Errors];
             };
           }

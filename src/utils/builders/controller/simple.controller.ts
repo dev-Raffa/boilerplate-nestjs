@@ -1,4 +1,13 @@
-import { Body, Delete, Get, Inject, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post
+} from '@nestjs/common';
 import { ISimpleService } from '../../interfaces/service/service.interface';
 import { IBaseController } from '../../interfaces/controller/controller.interface';
 
@@ -8,7 +17,7 @@ export abstract class SimpleController<T, S> implements IBaseController<T> {
   ) {}
 
   @Post()
-  async create(@Body() createArgs: Omit<T, 'id'>) {
+  async create(@Body('create') createArgs: Omit<T, 'id'>) {
     return await this.service.add(createArgs);
   }
 
@@ -17,20 +26,20 @@ export abstract class SimpleController<T, S> implements IBaseController<T> {
     return await this.service.getAll();
   }
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<T> {
+  async findOne(@Param('id', ParseIntPipe) id: string): Promise<T> {
     return await this.service.getOneById(+id);
   }
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
-    @Body() updateArgs: Partial<T>
+    @Param('id', ParseIntPipe) id: string,
+    @Body('update') updateArgs: Partial<T>
   ): Promise<T> {
     return await this.service.update(+id, updateArgs);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string): Promise<T[]> {
+  async delete(@Param('id', ParseIntPipe) id: string): Promise<T[]> {
     return await this.service.delete(+id);
   }
 }
