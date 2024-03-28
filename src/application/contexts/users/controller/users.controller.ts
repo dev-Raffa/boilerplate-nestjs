@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { UsersService } from '../service/users.service';
-import { BaseController } from '../../../../utils/builders/controller/base.controller';
+import { SimpleController } from '../../../../utils/builders/controller/simple.controller';
 import { IUser } from '../../../../domain/user/model/user.model';
 
 @Controller('users')
-export class UsersController extends BaseController<IUser, UsersService> {}
+export class UsersController extends SimpleController<IUser, UsersService> {}

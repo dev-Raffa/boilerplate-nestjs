@@ -1,10 +1,10 @@
-export interface IMockBaseEntity {
+export interface IMockEntity {
   id: number;
   name: string;
   age: number;
 }
 
-export class MockBaseEntity implements IMockBaseEntity {
+export class MockEntity implements IMockEntity {
   id: number;
   name: string;
   age: number;

@@ -1,10 +1,10 @@
 import { Body, Delete, Get, Inject, Param, Patch, Post } from '@nestjs/common';
-import { IBaseService } from '../../interfaces/service/service.interface';
+import { ISimpleService } from '../../interfaces/service/service.interface';
 import { IBaseController } from '../../interfaces/controller/controller.interface';
 
-export abstract class BaseController<T, S> implements IBaseController<T> {
+export abstract class SimpleController<T, S> implements IBaseController<T> {
   constructor(
-    @Inject('SERVICE') protected readonly service: IBaseService<T> & S
+    @Inject('SERVICE') protected readonly service: ISimpleService<T> & S
   ) {}
 
   @Post()

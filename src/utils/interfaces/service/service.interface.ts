@@ -1,4 +1,4 @@
-export interface IBaseService<T> {
+export interface ISimpleService<T> {
   add: (args: Omit<T, 'id'>) => Promise<T>;
   getAll: () => Promise<T[]>;
   getOneById: (id: number) => Promise<T>;

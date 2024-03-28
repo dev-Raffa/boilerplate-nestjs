@@ -1,31 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { IMockBaseEntity } from '../mocks/entity/base-entity.mock';
-import { MockBaseService } from '../mocks/service/service.mock';
-import { MockBaseRepository } from '../mocks/repository/base-repository.mock';
+import { IMockEntity } from '../../mocks/entity/entity.mock';
+import { MockService } from '../../mocks/service/service.mock';
+import { MockRepository } from '../../mocks/repository/repository.mock';
 import { IRepository } from 'src/utils/interfaces/repository/repository.inteface';
 import { NotFoundException } from '@nestjs/common';
-import { MockBaseDB } from '../mocks/database/database-base.mock';
+import { MockDatabase } from '../../mocks/database/database.mock';
 
-describe('BaseService', () => {
-  let service: MockBaseService;
-  let repository: IRepository<IMockBaseEntity>;
+describe('SimpleService', () => {
+  let service: MockService;
+  let repository: IRepository<IMockEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
           provide: 'SERVICE',
-          useClass: MockBaseService
+          useClass: MockService
         },
         {
           provide: 'REPOSITORY',
-          useClass: MockBaseRepository
+          useClass: MockRepository
         }
       ]
     }).compile();
 
-    service = module.get<MockBaseService>('SERVICE');
-    repository = module.get<IRepository<IMockBaseEntity>>('REPOSITORY');
+    service = module.get<MockService>('SERVICE');
+    repository = module.get<IRepository<IMockEntity>>('REPOSITORY');
   });
 
   it('should be defined', () => {
@@ -34,7 +34,7 @@ describe('BaseService', () => {
   });
 
   describe('create', () => {
-    const req: Omit<IMockBaseEntity, 'id'> = {
+    const req: Omit<IMockEntity, 'id'> = {
       name: 'teste',
       age: 24
     };
@@ -42,8 +42,8 @@ describe('BaseService', () => {
     it('should return a user when create with succes', async () => {
       const result = await service.add(req);
 
-      expect(result).toEqual<IMockBaseEntity>({
-        id: MockBaseDB.length,
+      expect(result).toEqual<IMockEntity>({
+        id: MockDatabase.length,
         age: 24,
         name: 'teste'
       });
@@ -53,7 +53,7 @@ describe('BaseService', () => {
   describe('find', () => {
     it('should return all repository itens', async () => {
       const result = await service.getAll();
-      expect(result).toEqual(MockBaseDB);
+      expect(result).toEqual(MockDatabase);
     });
   });
 
@@ -65,7 +65,7 @@ describe('BaseService', () => {
     it('should return one entity when id is found', async () => {
       const result = await service.getOneById(2);
 
-      expect(result).toEqual(MockBaseDB[1]);
+      expect(result).toEqual(MockDatabase[1]);
     });
   });
 

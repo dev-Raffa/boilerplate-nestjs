@@ -1,6 +1,6 @@
-import { IMockBaseEntity } from '../entity/base-entity.mock';
+import { IMockEntity } from '../entity/entity.mock';
 
-export const MockBaseDB: IMockBaseEntity[] = [
+export const MockDatabase: IMockEntity[] = [
   {
     id: 1,
     name: 'Jorge',

@@ -1,30 +1,30 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MockBaseController } from '../mocks/controller/controller.mock';
-import { MockBaseService } from '../mocks/service/service.mock';
-import { MockBaseRepository } from '../mocks/repository/base-repository.mock';
-import { IMockBaseEntity } from '../mocks/entity/base-entity.mock';
+import { MockController } from '../../mocks/controller/controller.mock';
+import { MockService } from '../../mocks/service/service.mock';
+import { MockRepository } from '../../mocks/repository/repository.mock';
+import { IMockEntity } from '../../mocks/entity/entity.mock';
 
-describe('BaseController', () => {
-  let controller: MockBaseController;
-  let service: MockBaseService;
+describe('SimpleController', () => {
+  let controller: MockController;
+  let service: MockService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [MockBaseController],
+      controllers: [MockController],
       providers: [
         {
           provide: 'SERVICE',
-          useClass: MockBaseService
+          useClass: MockService
         },
         {
           provide: 'REPOSITORY',
-          useClass: MockBaseRepository
+          useClass: MockRepository
         }
       ]
     }).compile();
 
-    controller = module.get<MockBaseController>(MockBaseController);
-    service = module.get<MockBaseService>('SERVICE');
+    controller = module.get<MockController>(MockController);
+    service = module.get<MockService>('SERVICE');
   });
 
   it('should be defined', () => {
@@ -33,7 +33,7 @@ describe('BaseController', () => {
   });
 
   describe('create', () => {
-    const req: Omit<IMockBaseEntity, 'id'> = {
+    const req: Omit<IMockEntity, 'id'> = {
       name: 'José',
       age: 58
     };
@@ -58,7 +58,7 @@ describe('BaseController', () => {
   });
 
   describe('findOne', () => {
-    const req: Omit<IMockBaseEntity, 'id'> = {
+    const req: Omit<IMockEntity, 'id'> = {
       name: 'José',
       age: 58
     };
@@ -74,7 +74,7 @@ describe('BaseController', () => {
   });
 
   describe('update', () => {
-    const req: Omit<IMockBaseEntity, 'id'> = {
+    const req: Omit<IMockEntity, 'id'> = {
       name: 'José',
       age: 58
     };
@@ -90,7 +90,7 @@ describe('BaseController', () => {
   });
 
   describe('delete', () => {
-    const req: Omit<IMockBaseEntity, 'id'> = {
+    const req: Omit<IMockEntity, 'id'> = {
       name: 'José',
       age: 58
     };

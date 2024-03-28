@@ -1,20 +1,20 @@
 import { IRepository } from 'src/utils/interfaces/repository/repository.inteface';
-import { IMockBaseEntity, MockBaseEntity } from '../entity/base-entity.mock';
-import { MockBaseDB } from '../database/database-base.mock';
+import { IMockEntity, MockEntity } from '../entity/entity.mock';
+import { MockDatabase } from '../database/database.mock';
 
-export class MockBaseRepository implements IRepository<IMockBaseEntity> {
-  private repository: IMockBaseEntity[] = MockBaseDB;
+export class MockRepository implements IRepository<IMockEntity> {
+  private repository: IMockEntity[] = MockDatabase;
 
   private getId() {
     return this.repository.length + 1;
   }
 
-  async create(args: Omit<IMockBaseEntity, 'id'>) {
+  async create(args: Omit<IMockEntity, 'id'>) {
     const id = this.getId();
-    return new MockBaseEntity(id, args.name, args.age);
+    return new MockEntity(id, args.name, args.age);
   }
 
-  async save(args: IMockBaseEntity) {
+  async save(args: IMockEntity) {
     this.repository.push(args);
     return args;
   }
@@ -27,7 +27,7 @@ export class MockBaseRepository implements IRepository<IMockBaseEntity> {
     return this.repository.find((item) => item.id === args.id);
   }
 
-  async update(id: number, args: Partial<IMockBaseEntity>) {
+  async update(id: number, args: Partial<IMockEntity>) {
     const index = this.repository.findIndex((item) => item.id === id);
     Object.assign(this.repository[index], args);
     return this.repository[index];
