@@ -9,7 +9,7 @@ jest.mock('../../../../utils/decorators/validate/validate.decorator', () => ({
   Validate: jest.fn()
 }));
 
-describe.skip('isEmail', () => {
+describe('isEmail', () => {
   it('should call the Validate method with EmailValidator & "email is invalid"  value parameters ', () => {
     const emailDecorator = isEmail('email is invalid');
     emailDecorator;

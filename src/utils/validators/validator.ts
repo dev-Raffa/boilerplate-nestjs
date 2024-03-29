@@ -1,3 +1,8 @@
+type validateArgs = {
+  value: string;
+  msgError: string;
+};
+
 export abstract class Validator {
-  abstract validate(value: string): boolean;
+  abstract validate(args: validateArgs): string | void;
 }

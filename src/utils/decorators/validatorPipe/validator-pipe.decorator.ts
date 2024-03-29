@@ -5,6 +5,7 @@ import {
   PipeTransform,
   Type
 } from '@nestjs/common';
+import { errorsException } from 'src/utils/types/ErrorsException/errorsException.type';
 
 type validatorPipe = {
   createDTO: Type<any>;
@@ -22,7 +23,7 @@ export function ValidatorPiPe<T extends { new (...args: any[]): object }>(
         if (metadata.type === 'body' && metadata.data !== 'undefined') {
           const DTO = await this.getDTO(metadata.data);
           try {
-            errors = new DTO(value).getErrors();
+            errors = new DTO(value).getValidatorErrors();
           } catch (e) {
             return value;
           }
@@ -43,11 +44,12 @@ export function ValidatorPiPe<T extends { new (...args: any[]): object }>(
         return name === 'create' ? args.createDTO : args.updateDTO;
       }
 
-      throwError(errors: any[]) {
+      throwError(errors: errorsException[]) {
         throw new HttpException(
           {
-            message: `Validation failed: The properties (${errors.toString()}) are invalid`,
+            message: `Validation failed`,
             error: 'Bad Request',
+            errors: errors,
             statusCode: HttpStatus.BAD_REQUEST
           },
           HttpStatus.BAD_REQUEST

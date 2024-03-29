@@ -3,7 +3,7 @@ import { isEmail } from '../../../../utils/decorators/isEmail/isEmail.decorator'
 import { ValidatorPiPe } from '../../../../utils/decorators/validatorPipe/validator-pipe.decorator';
 import { errorsException } from '../../../../utils/types/ErrorsException/errorsException.type';
 
-describe.skip('validatorPipe decorator', () => {
+describe('validatorPipe decorator', () => {
   class mockCreateDTO {
     name: string;
     @isEmail() email: string;
