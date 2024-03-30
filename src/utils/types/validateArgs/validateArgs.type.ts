@@ -1,5 +1,5 @@
 export type validateArgs = {
-  value: string;
+  value: any;
   msgError: string;
   options?: object;
 };
