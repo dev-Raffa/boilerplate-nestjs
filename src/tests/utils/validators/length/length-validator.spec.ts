@@ -1,6 +1,6 @@
 import { LengthValidator } from '../../../../utils/validators/length/length.validator';
 
-describe.skip('lengthValidator', () => {
+describe('lengthValidator', () => {
   const validator = new LengthValidator();
 
   it('should return false if the value.length is lower than the min length defined', () => {

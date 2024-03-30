@@ -2,13 +2,13 @@ import { Validator } from '../validator';
 import { numberValidatorArgs } from '../../../utils/types/numberValidatorArgs/numberValidatorArgs.type';
 
 export class NumberValidator implements Validator {
-  validate(args: numberValidatorArgs): string | void {
-    if (args.options.min && args.value < args.options.min) {
-      return args.msgError;
+  validate(args: numberValidatorArgs): boolean {
+    if (args.options.min) {
+      return args.value > args.options.min;
     }
 
-    if (args.options.max && args.value > args.options.max) {
-      return args.msgError;
+    if (args.options.max) {
+      return args.value < args.options.max;
     }
   }
 }

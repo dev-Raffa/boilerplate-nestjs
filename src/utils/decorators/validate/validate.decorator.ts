@@ -1,12 +1,12 @@
 import { Validator_Errors } from '../../constants/validatorErrors/validatorErrors.const';
 import { Validator } from '../../../utils/validators/validator';
-import { errorsException } from 'src/utils/types/ErrorsException/errorsException.type';
+import { errorsException } from '../../../utils/types/ErrorsException/errorsException.type';
+import { validatorArgs } from '../../../utils/interfaces/validatorArgs/validatorArgs.interface';
 
-export type validateDecoratorOptions = {
-  validator: InstanceType<typeof Validator>;
-  msgError: string;
-};
-export function Validate(options: validateDecoratorOptions) {
+export function Validate<T extends validatorArgs>(
+  validator: InstanceType<typeof Validator>,
+  validatorArgs: T
+) {
   return (target: any, propertyKey: string) => {
     let value = target[propertyKey];
 
@@ -15,11 +15,11 @@ export function Validate(options: validateDecoratorOptions) {
         return value;
       },
       set(v: any) {
-        const hasError = options.validator.validate({
+        const isValid = validator.validate({
           value: v,
-          msgError: options.msgError
+          options: validatorArgs.options
         });
-        if (hasError) {
+        if (!isValid) {
           if (target[Validator_Errors]) {
             target[Validator_Errors].push(propertyKey);
           } else {
@@ -27,7 +27,7 @@ export function Validate(options: validateDecoratorOptions) {
               value: [
                 {
                   field: propertyKey,
-                  error: options.msgError
+                  error: validatorArgs.errorMsg
                 } as errorsException
               ],
               configurable: true,

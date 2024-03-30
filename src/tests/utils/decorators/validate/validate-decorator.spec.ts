@@ -2,7 +2,7 @@ import { errorsException } from 'src/utils/types/ErrorsException/errorsException
 import { Validate } from '../../../../utils/decorators/validate/validate.decorator';
 import { EmailValidator } from '../../../../utils/validators/email/email.validator';
 
-describe.skip('validate decorator', () => {
+describe('validate decorator', () => {
   const msgError = 'email is invalid.';
 
   class mockClass {
