@@ -1,20 +1,20 @@
 import { NumberValidator } from '../../../../utils/validators/number/number.validator';
 import { Validate } from '../../../../utils/decorators/Validate/validate.decorator';
-import { max } from '../../../../utils/decorators/max/max.decorator';
+import { minValue } from '../../../../utils/decorators/minValue/minValue.decorator';
 
 jest.mock('../../../../utils/decorators/Validate/validate.decorator', () => ({
   Validate: jest.fn()
 }));
 
-describe('max decorator', () => {
-  it('should call the Validate method with numberValidator & "the value should be lower 10"', () => {
-    const maxDecorator = max({ max: 10 });
-    maxDecorator;
+describe('minValue decorator', () => {
+  it('should call the Validate method with Validator & "the value should be greater 4"', () => {
+    const minValueDecorator = minValue({ min: 5 });
+    minValueDecorator;
 
     expect(Validate).toHaveBeenCalledWith(new NumberValidator(), {
-      errorMsg: 'the value should be lower 11',
+      errorMsg: 'the value should be greater 4',
       options: {
-        max: 10
+        min: 5
       }
     });
   });

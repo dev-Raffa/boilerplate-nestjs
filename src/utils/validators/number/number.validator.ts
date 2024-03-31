@@ -4,11 +4,11 @@ import { numberValidatorArgs } from '../../../utils/types/numberValidatorArgs/nu
 export class NumberValidator implements Validator {
   validate(args: numberValidatorArgs): boolean {
     if (args.options.min) {
-      return args.value > args.options.min;
+      return args.value >= args.options.min;
     }
 
     if (args.options.max) {
-      return args.value < args.options.max;
+      return args.value <= args.options.max;
     }
   }
 }

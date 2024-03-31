@@ -1,15 +1,15 @@
 import { Validate } from '../Validate/validate.decorator';
 import { NumberValidator } from '../../validators/number/number.validator';
 
-interface minDecorator {
+interface minValueDecorator {
   errorMsg: string;
   options: {
     min: number;
   };
 }
 
-export function min(args: { min: number; errorMsg?: string }) {
-  return Validate<minDecorator>(new NumberValidator(), {
+export function minValue(args: { min: number; errorMsg?: string }) {
+  return Validate<minValueDecorator>(new NumberValidator(), {
     errorMsg: args.errorMsg
       ? args.errorMsg
       : `the value should be greater ${args.min - 1}`,
