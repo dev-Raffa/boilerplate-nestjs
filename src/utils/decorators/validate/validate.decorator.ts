@@ -20,8 +20,19 @@ export function Validate<T extends validatorArgs>(
           options: validatorArgs.options
         });
         if (!isValid) {
-          if (target[Validator_Errors]) {
-            target[Validator_Errors].push(propertyKey);
+          const errors: errorsException[] = target[Validator_Errors];
+
+          if (errors) {
+            const errorIndex = errors.findIndex((e) => e.field === propertyKey);
+
+            if (errorIndex > -1) {
+              errors[errorIndex].error = validatorArgs.errorMsg;
+            } else {
+              target[Validator_Errors].push({
+                field: propertyKey,
+                error: validatorArgs.errorMsg
+              } as errorsException);
+            }
           } else {
             Object.defineProperty(target, Validator_Errors, {
               value: [
@@ -39,6 +50,13 @@ export function Validate<T extends validatorArgs>(
             };
           }
         } else {
+          const errors: errorsException[] = target[Validator_Errors];
+
+          if (errors) {
+            const errorIndex = errors.findIndex((e) => e.field === propertyKey);
+
+            errorIndex > -1 && errors.splice(errorIndex, 1);
+          }
           value = v;
         }
       },
