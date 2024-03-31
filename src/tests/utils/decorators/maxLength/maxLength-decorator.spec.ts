@@ -6,7 +6,7 @@ jest.mock('../../../../utils/decorators/Validate/validate.decorator', () => ({
   Validate: jest.fn()
 }));
 
-describe.skip('maxLength decorator', () => {
+describe('maxLength decorator', () => {
   it('should call the Validate method with lengthValidator & "the value.length should be lower 10"', () => {
     const maxLengthDecorator = maxLength({ max: 10 });
     maxLengthDecorator;
