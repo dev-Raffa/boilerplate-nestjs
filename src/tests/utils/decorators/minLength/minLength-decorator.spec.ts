@@ -6,7 +6,7 @@ jest.mock('../../../../utils/decorators/Validate/validate.decorator', () => ({
   Validate: jest.fn()
 }));
 
-describe.skip('minLength decorator', () => {
+describe('minLength decorator', () => {
   it('should call the Validate method with lengthValidator & "the value.length should be greater 4"', () => {
     const minLengthDecorator = minLength({ min: 5 });
     minLengthDecorator;
