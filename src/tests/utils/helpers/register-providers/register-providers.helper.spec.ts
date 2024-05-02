@@ -5,12 +5,17 @@ import { IRepository } from '../../../../utils/interfaces/repository/repository.
 import { IMockEntity, MockEntity } from '../../mocks/entity/entity.mock';
 import { registerProviders } from '../../../../utils/helpers/register-providers/register-providers.helper';
 import { MockDatabaseModule } from '../../mocks/module/database/database-module.mock';
+import { CreateMockDTO } from '../../mocks/dto/create/create-dto.mock';
+import { UpdateMockDTO } from '../../mocks/dto/update/update-dto.mock';
+import { Type } from '@nestjs/common';
 
 describe('registerProviders', () => {
   let service: MockService;
   let repository: IRepository<IMockEntity>;
+  let createDTO: Type<any> | undefined;
+  let updateDTO: Type<any> | undefined;
 
-  beforeEach(async () => {
+  it('should defined service and repository, updateDTO and createDTO are undefined ', async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [MockDatabaseModule],
       providers: registerProviders({ entity: MockEntity, service: MockService })
@@ -18,10 +23,33 @@ describe('registerProviders', () => {
 
     service = module.get<MockService>('SERVICE');
     repository = module.get<IRepository<IMockEntity>>('REPOSITORY');
-  });
+    createDTO = module.get<undefined>('CREATE_DTO');
+    updateDTO = module.get<undefined>('UPDATE_DTO');
 
-  it('should be defined', () => {
     expect(service).toBeDefined();
     expect(repository).toBeDefined();
+    expect(createDTO).toBe(undefined);
+    expect(updateDTO).toBe(undefined);
+  });
+
+  it('should defined service, repository, updateDTO and createDTO', async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [MockDatabaseModule],
+      providers: registerProviders({
+        entity: MockEntity,
+        service: MockService,
+        DTOS: { create: CreateMockDTO, update: UpdateMockDTO }
+      })
+    }).compile();
+
+    service = module.get<MockService>('SERVICE');
+    repository = module.get<IRepository<IMockEntity>>('REPOSITORY');
+    createDTO = module.get<Type<any>>('CREATE_DTO');
+    updateDTO = module.get<Type<any>>('UPDATE_DTO');
+
+    expect(service).toBeDefined();
+    expect(repository).toBeDefined();
+    expect(createDTO).toBeDefined();
+    expect(updateDTO).toBeDefined();
   });
 });

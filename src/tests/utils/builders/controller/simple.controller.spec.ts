@@ -19,6 +19,14 @@ describe('SimpleController', () => {
         {
           provide: 'REPOSITORY',
           useClass: MockRepository
+        },
+        {
+          provide: 'CREATE_DTO',
+          useValue: undefined
+        },
+        {
+          provide: 'UPDATE_DTO',
+          useValue: undefined
         }
       ]
     }).compile();
