@@ -3,6 +3,16 @@ import { NumberValidator } from '../../../../utils/validators/number/number.vali
 describe('numberValidator', () => {
   const validator = new NumberValidator();
 
+  it('it should return false if the value is not a nunber', () => {
+    const result = validator.validate({
+      //@ts-expect-error Type 'string' is not assignable to type 'number'.
+      value: 'a',
+      options: { max: 10 }
+    });
+
+    expect(result).toBe(false);
+  });
+
   it('it should return false if the number is lower than the min value defined', () => {
     const result = validator.validate({
       value: 8,
