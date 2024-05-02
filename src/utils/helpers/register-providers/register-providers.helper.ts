@@ -1,25 +1,6 @@
 import { Provider, Type } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
-export type registerProvidersOptions = {
-  entity: Type<any>;
-  service: Type<any>;
-};
-
-type registerProvidersOptionsWithOthers = registerProvidersOptions & {
-  others?: Provider[];
-};
-
-type registerProvidersOptionsWithDTOS = registerProvidersOptions & {
-  DTOS: {
-    create: Type;
-    update: Type;
-  };
-};
-
-type registerProvidersOptionsWithDTOSAndOthers =
-  registerProvidersOptionsWithDTOS & registerProvidersOptionsWithOthers;
-
 type registerProvidersBaseOptions = {
   entity: Type<any>;
   service: Type<any>;
@@ -30,12 +11,36 @@ type registerProvidersBaseOptions = {
   others?: Provider[];
 };
 
-export function registerProviders(options: registerProvidersOptions);
-export function registerProviders(options: registerProvidersOptionsWithOthers);
-export function registerProviders(options: registerProvidersOptionsWithDTOS);
-export function registerProviders(
-  options: registerProvidersOptionsWithDTOSAndOthers
-);
+export function registerProviders(options: {
+  entity: Type<any>;
+  service: Type<any>;
+}): Provider[];
+
+export function registerProviders(options: {
+  entity: Type<any>;
+  service: Type<any>;
+  DTOS: {
+    create: Type<any>;
+    update: Type<any>;
+  };
+}): Provider[];
+
+export function registerProviders(options: {
+  entity: Type<any>;
+  service: Type<any>;
+  others: Provider[];
+}): Provider[];
+
+export function registerProviders(options: {
+  entity: Type<any>;
+  service: Type<any>;
+  DTOS: {
+    create: Type<any>;
+    update: Type<any>;
+  };
+  others: Provider[];
+}): Provider[];
+
 export function registerProviders(
   options: registerProvidersBaseOptions
 ): Provider[] {
@@ -52,12 +57,17 @@ export function registerProviders(
     }
   ];
 
-  options.DTOS &&
-    (baseProviders = [
-      ...baseProviders,
-      { provide: 'CREATE_DTO', useValue: options.DTOS.create },
-      { provide: 'UPDATE_DTO', useValue: options.DTOS.update }
-    ]);
+  options.DTOS
+    ? (baseProviders = [
+        ...baseProviders,
+        { provide: 'CREATE_DTO', useValue: options.DTOS.create },
+        { provide: 'UPDATE_DTO', useValue: options.DTOS.update }
+      ])
+    : (baseProviders = [
+        ...baseProviders,
+        { provide: 'CREATE_DTO', useValue: undefined },
+        { provide: 'UPDATE_DTO', useValue: undefined }
+      ]);
 
   return options.others
     ? [...baseProviders, ...options.others]
