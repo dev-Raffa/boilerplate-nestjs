@@ -3,12 +3,14 @@ import { numberValidatorArgs } from '../../../utils/types/numberValidatorArgs/nu
 
 export class NumberValidator implements Validator {
   validate(args: numberValidatorArgs): boolean {
-    if (args.options.min) {
-      return args.value >= args.options.min;
+    if (
+      (args.options.min && args.value < args.options.min) ||
+      (args.options.max && args.value > args.options.max) ||
+      typeof args.value !== 'number'
+    ) {
+      return false;
     }
 
-    if (args.options.max) {
-      return args.value <= args.options.max;
-    }
+    return true;
   }
 }
