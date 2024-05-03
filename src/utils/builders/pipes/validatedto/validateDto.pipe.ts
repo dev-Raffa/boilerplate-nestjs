@@ -9,14 +9,10 @@ export abstract class ValidateDTOPipe implements PipeTransform {
 
     errors = this.verifyArgs(value);
 
-    errors.length > 0 && this.throwError(errors);
-
     if (this.DTO) {
       try {
-        errors = new this.DTO(value).getValidatorErrors();
-      } catch (error) {
-        console.log(error);
-      }
+        errors = [...errors, new this.DTO(value).getValidatorErrors()];
+      } catch (error) {}
     }
 
     errors.length > 0 && this.throwError(errors);
