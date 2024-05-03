@@ -1,9 +1,9 @@
+import { isString } from '../../../../../utils/decorators/isString/isString.decorator';
 import { isNumber } from '../../../../../utils/decorators/isNumber/isNumber.decorator';
-import { minLength } from '../../../../../utils/decorators/minLength/minLength.decorator';
 import { IMockEntity } from '../../entity/entity.mock';
 
 export class CreateMockDTO implements Omit<IMockEntity, 'id'> {
-  @minLength({ min: 3 })
+  @isString({ options: { minLength: 3 } })
   name: string;
 
   @isNumber({ options: { min: 16 } })

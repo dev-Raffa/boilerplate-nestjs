@@ -1,4 +1,4 @@
-export type lengthValidatorArgs = {
+export type stringValidatorArgs = {
   value: string;
   options?: {
     max?: number;

@@ -1,7 +1,7 @@
-import { LengthValidator } from '../../../../utils/validators/length/length.validator';
+import { StringValidator } from '../../../../utils/validators/string/string.validator';
 
-describe('lengthValidator', () => {
-  const validator = new LengthValidator();
+describe('StringValidator', () => {
+  const validator = new StringValidator();
 
   it('should return false if the value.length is lower than the min length defined', () => {
     const result = validator.validate({
