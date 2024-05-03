@@ -6,11 +6,11 @@ type argsEmailDecorator = {
   nullable?: boolean;
 };
 
-export function isEmail(args: argsEmailDecorator) {
+export function isEmail(args?: argsEmailDecorator) {
   return Validate(new EmailValidator(), {
     errorMsg:
-      args.errorMsg ||
+      args?.errorMsg ||
       'the email should contain a valid format like "name@domain.com" & a valid domain',
-    nullable: args.nullable || false
+    nullable: args?.nullable || false
   });
 }
