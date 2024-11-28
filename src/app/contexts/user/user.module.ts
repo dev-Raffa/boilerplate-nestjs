@@ -4,19 +4,17 @@ import { UserService } from './service/users.service';
 import { UserEntity } from './entity/user.entity';
 import { UsersController } from './controller/user.controller';
 import { registerProviders } from '../../../utils/helpers/register-providers/register-providers.helper';
-import { CreateUserDTO } from './dto/create/create-user.dto';
-import { UpdateUserDTO } from './dto/update/update-user.dto';
+import { APP_PIPE } from '@nestjs/core';
+import { UserValidatorPipe } from './middlewares/pipes/validator/validator.pipe';
 
 @Module({
   imports: [DatabaseModule],
-  providers: registerProviders({
-    entity: UserEntity,
-    service: UserService,
-    DTOS: {
-      create: CreateUserDTO,
-      update: UpdateUserDTO
+  providers: registerProviders(UserEntity, UserService, [
+    {
+      provide: APP_PIPE,
+      useClass: UserValidatorPipe
     }
-  }),
+  ]),
   controllers: [UsersController]
 })
 export class UserModule {}

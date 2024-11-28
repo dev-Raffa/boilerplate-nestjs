@@ -6,13 +6,10 @@ import {
   Param,
   ParseIntPipe,
   Patch,
-  Post,
-  UsePipes
+  Post
 } from '@nestjs/common';
 import { ISimpleService } from '../../interfaces/service/service.interface';
 import { IBaseController } from '../../interfaces/controller/controller.interface';
-import { CreateDTOPipe } from '../../pipes/createDTO/createDTO.pipe';
-import { UpdateDTOPipe } from '../../pipes/updateDTO/update.pipe';
 
 export abstract class SimpleController<T, S> implements IBaseController<T> {
   constructor(
@@ -20,7 +17,6 @@ export abstract class SimpleController<T, S> implements IBaseController<T> {
   ) {}
 
   @Post()
-  @UsePipes(CreateDTOPipe)
   async create(@Body() createArgs: Omit<T, 'id'>) {
     return await this.service.add(createArgs);
   }
@@ -36,7 +32,6 @@ export abstract class SimpleController<T, S> implements IBaseController<T> {
   }
 
   @Patch(':id')
-  @UsePipes(UpdateDTOPipe)
   async update(
     @Param('id', ParseIntPipe) id: string,
     @Body() updateArgs: Partial<T>
