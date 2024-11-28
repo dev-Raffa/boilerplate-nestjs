@@ -1,13 +1,10 @@
 import { Validate } from '../Validate/validate.decorator';
 import { StringValidator } from '../../validators/string/string.validator';
+import { stringValidatorArgs } from 'src/utils/types/stringValidtorArgs/stringValidatorArgs.type';
 
-interface isStringDecorator {
+interface isStringDecorator extends Pick<stringValidatorArgs, 'options'> {
   errorMsg: string;
   nullable: boolean;
-  options?: {
-    maxLength?: number;
-    minLength?: number;
-  };
 }
 
 export function isString(args?: Partial<isStringDecorator>) {

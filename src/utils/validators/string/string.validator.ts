@@ -4,8 +4,8 @@ import { Validator } from '../validator';
 export class StringValidator implements Validator {
   validate(args: stringValidatorArgs): boolean {
     if (
-      (args.options.min && args.value.length < args.options.min) ||
-      (args.options.max && args.value.length > args.options.max)
+      (args.options.minLength && args.value.length < args.options.minLength) ||
+      (args.options.maxLength && args.value.length > args.options.maxLength)
     ) {
       return false;
     }

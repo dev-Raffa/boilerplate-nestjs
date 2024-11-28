@@ -1,13 +1,10 @@
 import { Validate } from '../Validate/validate.decorator';
 import { NumberValidator } from '../../validators/number/number.validator';
+import { numberValidatorArgs } from 'src/utils/types/numberValidatorArgs/numberValidatorArgs.type';
 
-interface isNumberDecorator {
+interface isNumberDecorator extends Pick<numberValidatorArgs, 'options'> {
   errorMsg: string;
   nullable: boolean;
-  options: {
-    min?: number;
-    max?: number;
-  };
 }
 
 export function isNumber(args?: Partial<isNumberDecorator>) {

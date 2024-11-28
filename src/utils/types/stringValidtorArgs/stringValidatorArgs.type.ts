@@ -1,7 +1,7 @@
 export type stringValidatorArgs = {
   value: string;
   options?: {
-    max?: number;
-    min?: number;
+    maxLength?: number;
+    minLength?: number;
   };
 };

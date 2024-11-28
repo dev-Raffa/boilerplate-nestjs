@@ -60,7 +60,6 @@ export function Validate<T extends validatorArgs>(
           field: propertyKey,
           error: validatorArgs.errorMsg
         } as errorsException);
-        console.log(target[Validator_Errors]);
         return;
       }
 

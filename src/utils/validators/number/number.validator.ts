@@ -6,7 +6,7 @@ export class NumberValidator implements Validator {
     if (
       (args.options.min && args.value < args.options.min) ||
       (args.options.max && args.value > args.options.max) ||
-      typeof args.value !== 'number'
+      Number.isNaN(Number(args.value)) === true
     ) {
       return false;
     }
