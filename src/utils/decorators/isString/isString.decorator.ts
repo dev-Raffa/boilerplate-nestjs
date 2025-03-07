@@ -1,10 +1,11 @@
-import { Validate } from '../Validate/validate.decorator';
+import { TValidatorsOptions, Validate } from '../validate/validate.decorator';
 import { StringValidator } from '../../validators/string/string.validator';
 import { stringValidatorArgs } from 'src/utils/types/stringValidtorArgs/stringValidatorArgs.type';
 
-interface isStringDecorator extends Pick<stringValidatorArgs, 'options'> {
+interface isStringDecorator
+  extends Pick<stringValidatorArgs, 'options'>,
+    Omit<TValidatorsOptions, 'type'> {
   errorMsg: string;
-  nullable: boolean;
 }
 
 export function isString(args?: Partial<isStringDecorator>) {
@@ -16,12 +17,17 @@ export function isString(args?: Partial<isStringDecorator>) {
         : args.options.maxLength &&
           `the text should contain fewer than ${args.options.maxLength + 1} characters`;
 
-  return Validate<isStringDecorator>(new StringValidator(), {
-    errorMsg: args.errorMsg || defaultErrorMsg,
-    nullable: args.nullable || false,
-    options: {
-      minLength: args.options.minLength,
-      maxLength: args.options.maxLength
-    }
+  return Validate<isStringDecorator>({
+    validator: new StringValidator(),
+    validatorArgs: {
+      errorMsg: args.errorMsg || defaultErrorMsg,
+      nullable: args.nullable || false,
+      options: {
+        minLength: args.options.minLength,
+        maxLength: args.options.maxLength
+      }
+    },
+    isArray: args.isArray || false,
+    nullable: args.nullable || false
   });
 }

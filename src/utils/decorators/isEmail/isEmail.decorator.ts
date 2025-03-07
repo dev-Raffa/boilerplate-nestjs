@@ -1,16 +1,19 @@
 import { EmailValidator } from '../../validators/email/email.validator';
-import { Validate } from '../Validate/validate.decorator';
+import { TValidatorsOptions, Validate } from '../validate/validate.decorator';
 
-type argsEmailDecorator = {
+interface argsEmailDecorator extends TValidatorsOptions {
   errorMsg?: string;
-  nullable?: boolean;
-};
+}
 
 export function isEmail(args?: argsEmailDecorator) {
-  return Validate(new EmailValidator(), {
-    errorMsg:
-      args?.errorMsg ||
-      'the email should contain a valid format like "name@domain.com" & a valid domain',
-    nullable: args?.nullable || false
+  return Validate({
+    validator: new EmailValidator(),
+    validatorArgs: {
+      errorMsg:
+        args?.errorMsg ||
+        'the email should contain a valid format like "name@domain.com" & a valid domain'
+    },
+    nullable: args?.nullable || false,
+    isArray: args?.isArray || false
   });
 }
