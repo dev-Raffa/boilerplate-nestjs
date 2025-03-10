@@ -21,7 +21,7 @@ export function isNumber(args?: Partial<isNumberDecorator>) {
   return Validate<isNumberDecorator>({
     validator: new NumberValidator(),
     validatorArgs: {
-      errorMsg: args.errorMsg ? args.errorMsg : defaultErrorMsg,
+      errorMsg: defaultErrorMsg,
       options: {
         min: args.options.min,
         max: args.options.max
