@@ -1,9 +1,10 @@
 import { isEmail } from '../../../../../utils/decorators/isEmail/isEmail.decorator';
-import { IUser } from '../../model/user.model';
+import { ERoles, IUser } from '../../model/user.model';
 import { isNumber } from '../../../../../utils/decorators/isNumber/isNumber.decorator';
 import { isString } from '../../../../../utils/decorators/isString/isString.decorator';
 import { isType } from 'src/utils/decorators/isType/isType.decorator';
 import { IAdress } from '../../model/address.model';
+import { isEnum } from 'src/utils/decorators/isEnum/isEnum.decorator';
 
 export class Address implements IAdress {
   @isString({ options: { minLength: 5 } })
@@ -26,6 +27,9 @@ export class CreateUserDTO implements Omit<IUser, 'id'> {
 
   @isType({ type: Address, isArray: true })
   addresses: IAdress[];
+
+  @isEnum({ enum: ERoles })
+  role: keyof typeof ERoles;
 
   constructor(args: Omit<IUser, 'id'>) {
     Object.assign(this, args);

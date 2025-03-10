@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { IUser } from '../model/user.model';
+import { ERoles, IUser } from '../model/user.model';
 import { IAdress } from '../model/address.model';
 import { AddressEntity } from './adress.entity';
 
@@ -16,6 +16,9 @@ export class UserEntity implements IUser {
 
   @Column({ nullable: true })
   email: string;
+
+  @Column({ type: 'enum', enum: Object.values(ERoles) })
+  role: keyof typeof ERoles;
 
   @OneToMany(() => AddressEntity, (address) => address.user, { cascade: true })
   addresses: IAdress[];
